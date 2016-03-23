@@ -1,0 +1,277 @@
+/*
+************************************************************************************************************************
+*                                                        walkman
+*
+*                                  Copyright(C), 2006-2010, AllWinner Technology Co., Ltd.
+*											       All Rights Reserved
+*
+* File Name   : dsk_walkman.c
+*
+* Author      : Gary.Wang
+*
+* Version     : 1.0
+*
+* Date        : 2010.06.14
+*
+* Description :
+* 
+* Others      : None at present.
+*
+*
+* History     :
+*
+*  <Author>        <time>       <version>      <description>
+*
+* Gary.Wang      2010.06.14        1.0         build the file
+*
+************************************************************************************************************************
+*/
+#ifndef  __DSK_WALKMAN_C__
+#define  __DSK_WALKMAN_C__
+
+
+
+#include "dsk_walkman_i.h"
+
+
+#define DSK_WKM_MONITOR_PRIO              KRNL_priolevel3
+
+
+static __s32 _request_open_res( void );
+static void  _release_open_res( void );
+static void  _release_init_res( void );
+
+
+/*
+****************************************************************************************************
+*Name        : dsk_wkm_init
+*Prototype   : __s32 dsk_wkm_init( dsk_wkm_mode_e work_mode )
+*Arguments   : work_mode  input. work mode 
+*Return      : ==0     succeed
+*              !=0     fail
+*Description : init walkman
+*Other       :
+****************************************************************************************************
+*/
+__s32  dsk_wkm_init( dsk_wkm_mode_e dsk_wkm_mode )
+{
+	switch( dsk_wkm_mode )
+	{
+		case DSK_WKM_MODE_AUDIO_MIN :
+		{
+        	if( dsk_wkm_res_mutex_create( ) )
+        		goto error;
+
+			if( dsk_wkm_orchid_open( ) )
+				goto error;
+				
+			if( dsk_wkm_npl_create( ORC_MEDIA_TYPE_AUDIO, ORC_NPL_WORK_MODE_MANAGE ) )
+				goto error;
+				
+			break;
+	    }
+		default :
+		{
+			goto error;
+	    }
+	}
+	
+	dsk_wkm_set_open_state( EPDK_FALSE );
+    dsk_wkm_set_playing_state( EPDK_FALSE );
+    
+	return 0;
+	
+error:
+	_release_init_res( );
+	dsk_wkm_set_open_state( EPDK_FALSE );
+    dsk_wkm_set_playing_state( EPDK_FALSE );
+	return -1;
+}
+
+
+
+/*
+****************************************************************************************************
+*Name        : dsk_wkm_exit
+*Prototype   : void dsk_wkm_exit( void )
+*Arguments   : void 
+*Return      : void 
+*Description : exit walkman
+*Other       :
+****************************************************************************************************
+*/
+void  dsk_wkm_exit( void )
+{
+	to_quit_dsk_wkm  = EPDK_TRUE;
+	/* close walkman */
+	dsk_wkm_close();
+	_release_init_res( );
+}
+
+
+
+/***************************************************************************************************
+*Name        : dsk_wkm_open
+*Prototype   : __s32  dsk_wkm_open( void )
+*Arguments   : void 
+*Return      : ==0    succeed
+*              !=0    fail
+*Description : open walkman and then you can play file.
+*Other       :
+***************************************************************************************************/
+__s32  dsk_wkm_open( void )
+{
+    if( dsk_wkm_get_open_state() == EPDK_TRUE )
+    {
+        return 0;
+    }
+    
+	if( _request_open_res() )
+		goto error;
+	
+	to_quit_dsk_wkm  = EPDK_FALSE;
+    
+	return 0;
+	
+error:
+	_release_open_res( );
+	to_quit_dsk_wkm  = EPDK_FALSE;
+	return -1;
+}
+
+
+
+/***************************************************************************************************
+*Name        : dsk_wkm_close
+*Prototype   : void  dsk_wkm_close( void )
+*Arguments   : void
+*Return      : void
+*Description : close walkman.
+*Other       :
+***************************************************************************************************/
+void  dsk_wkm_close( void )
+{
+	to_quit_dsk_wkm  = EPDK_TRUE;
+    dsk_wkm_stop();
+	_release_open_res( );
+}
+
+
+
+/*
+****************************************************************************************************
+*Name        : dsk_wkm_set_cb
+*Prototype   : __s32 dsk_wkm_set_cb( dsk_wkm_event_e event, __s32 (*cb)(void *arg_p) );
+*Arguments   : event   input. event type.
+*              cb      input. the callback function. NULL means unregister the callback function. 回
+*                      调函数里面不能调用“dsk_wkm_..."相关的接口，以免死锁。
+*Return      : ==0     succeed
+*              !=0     fail
+*Description : set callback functions for events.
+*Other       :
+****************************************************************************************************
+*/
+__s32 dsk_wkm_set_cb( dsk_wkm_event_e event, dsk_wkm_cb_t cb, void * arg_p)
+{
+    __u8    err;
+    __s32   ret;
+    
+    g_pend_mutex( dsk_wkm_res_mutex, &err );
+    
+    switch( event )
+    {
+        case DSK_WKM_EVENT_AUTO_PLAY_NEXT:
+        {
+            cb_auto_play_next = esKRNL_GetCallBack(cb);
+			arg_auto_play_next=arg_p;
+            ret = 0;
+            break;
+        }
+		case DSK_WKM_EVENT_PLAY_ERR:
+		{
+			cb_play_err = esKRNL_GetCallBack(cb);
+			arg_play_err=arg_p;
+		}
+        default :
+        {
+            ret = -1;
+        }
+    }
+    
+    g_post_mutex( dsk_wkm_res_mutex );
+    
+    return ret;
+}
+
+
+
+/*
+****************************************************************************************************
+*Name        : dsk_wkm_get_cb
+*Prototype   : dsk_wkm_cb_t dsk_wkm_get_cb( dsk_wkm_event_e event )
+*Arguments   : event   input. event type.
+*Return      : the callback function of a event.
+*Description : get the callback function of a event.
+*Other       :
+****************************************************************************************************
+*/
+dsk_wkm_cb_t dsk_wkm_get_cb( dsk_wkm_event_e event )
+{
+    __u8    err;
+    dsk_wkm_cb_t   cb;
+    
+    g_pend_mutex( dsk_wkm_res_mutex, &err );
+    
+    switch( event )
+    {
+        case DSK_WKM_EVENT_AUTO_PLAY_NEXT:
+        {
+            cb = cb_auto_play_next;
+            break;
+        }
+        default :
+        {
+            cb = NULL;
+        }
+    }    
+    
+    g_post_mutex( dsk_wkm_res_mutex );
+    
+    return cb;
+}
+
+
+
+static void  _release_init_res( void )
+{    
+	dsk_wkm_npl_delete( );
+	dsk_wkm_orchid_close( );
+	dsk_wkm_res_mutex_delete( );
+}
+
+
+
+static __s32  _request_open_res( void )
+{
+	if( dsk_wkm_monitor_create( DSK_WKM_MONITOR_PRIO ) )
+		goto error;
+    
+	return 0;
+	
+error:
+	_release_open_res( );
+	return -1;
+}
+
+
+
+static void  _release_open_res( void )
+{
+	dsk_wkm_monitor_delete( );
+}
+
+
+
+#endif     //  ifndef __DSK_WALKMAN_C__
+
+/* end of dsk_walkman.c */
