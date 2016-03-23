@@ -1,0 +1,4 @@
+--via D:\Winners\ePDK\includes\cfgs\sunii\compiler.via
+-O0
+-DEPDK_DEBUG_LEVEL=EPDK_DEBUG_LEVEL_LOG_ALL
+-I "D:\winners\ePDK\eMod\drv_rocker"
