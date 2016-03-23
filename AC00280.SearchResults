@@ -1,0 +1,14 @@
+---- SetFanOnOff Matches (13 in 9 files) ----
+Com_ctrl.c (livedesk\beetles\applets\home):void SetFanOnOff(com_data_para_t *p_cmd_data, __u16 flag)
+Com_ctrl.h (livedesk\beetles\applets\home):void SetFanOnOff(com_data_para_t *p_cmd_data, __u16 falg);
+Hr_bar.c (livedesk\beetles\applets\home):			SetFanOnOff(mmenu_attr->p_cmd_data,fanFlag);
+Main_menu.c (livedesk\beetles\applets\home):			SetFanOnOff(p_data,2);
+Main_menu.c (livedesk\beetles\applets\home):			SetFanOnOff(p_data,fanFlag);
+Main_menu.c (livedesk\beetles\applets\home):				SetFanOnOff(p_data,2);
+Main_menu.c (livedesk\beetles\applets\home):					SetFanOnOff(mmenu_attr->p_cmd_data,2);
+Main_menu.c (livedesk\beetles\applets\home):					SetFanOnOff(mmenu_attr->p_cmd_data,2);
+Manuel_bar.c (livedesk\beetles\applets\home):			SetFanOnOff(mmenu_attr->p_cmd_data,fanFlag);
+Preset_bar.c (livedesk\beetles\applets\home):			SetFanOnOff(mmenu_attr->p_cmd_data,fanFlag);
+Sports_bar.c (livedesk\beetles\applets\home):			SetFanOnOff(mmenu_attr->p_cmd_data,fanFlag);
+Sports_hr_bar.c (livedesk\beetles\applets\home):			SetFanOnOff(mmenu_attr->p_cmd_data,fanFlag);
+User_bar.c (livedesk\beetles\applets\home):			SetFanOnOff(mmenu_attr->p_cmd_data,fanFlag);
