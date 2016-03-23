@@ -1,0 +1,48 @@
+[key_para]
+;;;;K14 K12... 这些名称只要与数组g_key_pad_name2val\matrix_keymapping定义一致即可，具体是什么名字不限
+
+
+SW4=string:EPG
+SW7=string:RIGHT
+SW9=string:PREVIEW_LIST
+SW5=string:SCAN
+SW8=string:ENTER
+SW6=string:MENU
+
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;;;;;;;;;;;;; 注意事项 ;;;;;;;;;
+    ;;;;;;; 只可修改 = 号后面的数值 ;;;;;
+  ;;;;;;;;;;;; 其他项禁止修改 ;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+[system]
+;默认音量 0-30
+volume=30
+
+;默认语言 0x400英文/0x410简体中文/0x420繁体中文 
+lang=0x410
+
+
+;默认背光亮度 0-14  
+;如: 等级1 light=0, 等级15 light=14
+light=12
+
+;按键音开关 off/on 0/1
+keytone=0
+
+;屏参数设置
+;对比度设置	 范围: 0-99
+lcd_constract=50
+
+;屏亮度设置	 范围: 0-99
+lcd_bright=50
+
+;屏饱和度设置 范围: 0-99
+lcd_saturation=50
+
+;屏色彩度设置	范围:	0-99
+lcd_hue=50
+
+;VCOM电压调节 范围:	0-30
+lcd_vcom=28

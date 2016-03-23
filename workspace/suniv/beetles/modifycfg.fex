@@ -1,0 +1,54 @@
+-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-->设置验证修改权限的密码
+-->终端客户使用权限密码
+Password="" 
+
+-->一级代理商使用权限密码
+xPassword="" 
+
+
+-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-->设置是否限制 = 1表示限制，=0表示全部可以修改
+Limited=1
+
+-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-->设置允许修改的文件列表，如果整个目录可修改，定义一个目录名称即可
+FilesTab=				
+{
+	{File="\\res\\boot_ui\\logo.bmp"},
+	{File="\\apps\\bg_default0.bgd"},
+	{File="\\apps\\bg_default1.bgd"},
+	{File="\\apps\\bg_default3.bgd"},
+	{File="\\app_config.fex"},
+	{File="\\res\\boot_ui\\logo.bmp"},
+	{File="\\res\\font\\font16.sft"},
+	{File="\\res\\sounds\\chord.wav"},
+	{File="\\res\\sounds\\alarm_default.mp3"},
+}
+
+
+-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-->以下的内容不能修改
+-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function GetFileListCnt()
+	local nCnt = table.getn(FilesTab);
+	return nCnt;
+end
+
+function GetFileList(nIndex)
+	return FilesTab[nIndex].File;
+end
+
+function GetPassWord()
+	return Password;
+end
+
+function GetXPassWord()
+	return xPassword;
+end
+
+function IsLimited()
+return Limited;
+end

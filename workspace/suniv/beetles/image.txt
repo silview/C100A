@@ -1,0 +1,55 @@
+image.cfgE:\C100A\eStudio\Softwares\eDragonEx220\
+E:\C100A\C100A_zyac\workspace\suniv\beetles 529
+szSysconfig = (null)
+0000000000 szFileList=FILELIST
+filecnt=16
+1111111111111szFileName=AC00280.img
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\beetles\\modifycfg.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\eFex\\sys_config.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\eFex\\sys_config.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\eFex\\usb\\split_xxxx.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\eFex\\sys_partition.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\beetles\boot0.bin
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\beetles\boot0.bin
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\beetles\u-boot.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\beetles\fes1.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\beetles\melis100.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\beetles\verify.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\eFex\\usb\\usbtool.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\eFex\\card\\cardtool.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\eFex\\card\\cardscript.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\beetles\sunxi_mbr.fex
+2222222szFileName=E:\C100A\C100A_zyac\workspace\suniv\eFex\\card\\dlinfo.fex
+ E:\C100A\C100A_zyac\workspace\suniv\beetles\\modifycfg.fex, COMMON  , MDF_CONFIG000000, 0
+ E:\C100A\C100A_zyac\workspace\suniv\eFex\\sys_config.fex, COMMON  , SYS_CONFIG100000, 0
+ E:\C100A\C100A_zyac\workspace\suniv\eFex\\sys_config.fex, COMMON  , SYS_CONFIG_BIN00, 0
+ E:\C100A\C100A_zyac\workspace\suniv\eFex\\usb\\split_xxxx.fex, COMMON  , SPLIT_0000000000, 0
+ E:\C100A\C100A_zyac\workspace\suniv\eFex\\sys_partition.fex, COMMON  , SYS_CONFIG000000, 0
+ E:\C100A\C100A_zyac\workspace\suniv\beetles\boot0.bin, BOOT    , BOOT0_0000000000, 0
+ E:\C100A\C100A_zyac\workspace\suniv\beetles\boot0.bin, 12345678, 1234567890BOOT_0, 0
+ E:\C100A\C100A_zyac\workspace\suniv\beetles\u-boot.fex, 12345678, UBOOT_0000000000, 0
+ E:\C100A\C100A_zyac\workspace\suniv\beetles\fes1.fex, FES     , FES_1-0000000000, 0
+ E:\C100A\C100A_zyac\workspace\suniv\beetles\melis100.fex, 12345678, FULLIMG_00000000, 0
+ E:\C100A\C100A_zyac\workspace\suniv\beetles\verify.fex, RFSFAT16, VFULLIMG_0000000, 0
+ E:\C100A\C100A_zyac\workspace\suniv\eFex\\usb\\usbtool.fex, PXTOOLSB, xxxxxxxxxxxxxxxx, 0
+ E:\C100A\C100A_zyac\workspace\suniv\eFex\\card\\cardtool.fex, 12345678, 1234567890cardtl, 0
+ E:\C100A\C100A_zyac\workspace\suniv\eFex\\card\\cardscript.fex, 12345678, 1234567890script, 0
+ E:\C100A\C100A_zyac\workspace\suniv\beetles\sunxi_mbr.fex, 12345678, 1234567890___MBR, 0
+ E:\C100A\C100A_zyac\workspace\suniv\eFex\\card\\dlinfo.fex, 12345678, 1234567890DLINFO, 0
+ret=0 111
+length=1469 0
+length=15778 0
+length=15778 0
+length=512 0
+length=2017 0
+length=24576 0
+length=24576 0
+length=212992 0
+length=10752 0
+length=8290304 0
+length=4 0
+length=122368 0
+length=81920 0
+length=2014 0
+length=65536 0
+length=16384 0
